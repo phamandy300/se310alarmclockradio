@@ -27,7 +27,7 @@ public class Clock {
             hours++;
         }
 
-        if (hours >= 60) {
+        if (hours > 12) {
             hours = 0;
             if (period.equals("AM")) {
                 period = "PM";
@@ -39,9 +39,13 @@ public class Clock {
     }
 
     public String display() {
-        return period;
+        String time;
+        time = String.format("%d:%d %s", hours, minutes, period);
+        return time;
     }
 
 }
+
+
 
 
