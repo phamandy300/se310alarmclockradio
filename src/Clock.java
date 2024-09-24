@@ -43,12 +43,26 @@ public class Clock {
 
     public String display() {
         String time;
-        time = String.format("%d:%d %s", hours, minutes, period);
+        int minZero = 0;
+
+        if (minutes == 0) {
+            time = String.format("%d:%d%d %s", hours, minutes, minZero, period);
+        } else {
+            time = String.format("%d:%d %s", hours, minutes, period);
+        }
+
         return time;
     }
 
+    public static void main(String[] args){
+        Clock test = new Clock(11, 59, "pm");
+        System.out.println(test.display());
+        for (int secs = 0; secs < 60; secs++) {
+            test.tick();
+        }
+        System.out.println(test.display());
+
+
+
+    }
 }
-
-
-
-
