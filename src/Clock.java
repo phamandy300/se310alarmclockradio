@@ -16,24 +16,27 @@ public class Clock {
     }
 
     public void tick() {
-        seconds++;
+        ++seconds;
         if (seconds >= 60) {
             seconds = 0;
-            minutes++;
+            ++minutes;
         }
 
         if (minutes >= 60) {
             minutes = 0;
-            hours++;
+            ++hours;
         }
 
-        if (hours > 12) {
-            hours = 0;
+        if (hours == 12) {
             if (period.equals("AM")) {
                 period = "PM";
             } else {
                 period = "AM";
             }
+        }
+
+        if (hours > 12) {
+            hours = 1;
         }
 
     }
