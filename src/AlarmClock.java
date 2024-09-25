@@ -1,52 +1,55 @@
 public class AlarmClock extends Clock{
-    public int alarmHR;
-    public int alarmMin;
-    public String alarmPeriod;
+    protected Time alarmTime;
+    Time snoozeTime;
     protected boolean alarmOn;
+    protected boolean snoozeState;
 
     public AlarmClock(int hours, int minutes, String period, int alarmHR, int alarmMin, String alarmPeriod) {
         super(hours, minutes, period);
-        this.alarmHR = alarmHR;
-        this.alarmMin = alarmMin;
-        this.alarmPeriod = alarmPeriod.toUpperCase();
+        alarmTime = new Time(alarmHR, alarmMin, alarmPeriod);
+        snoozeTime = new Time(alarmTime.hours, alarmTime.minutes, alarmTime.period);
         this.alarmOn = true;
+        this.snoozeState = false;
     }
 
     public void setAlarm(int setAlarmHR, int setAlarmMin, String setAlarmPeriod) {
-        alarmHR = setAlarmHR;
-        alarmMin = setAlarmMin;
-        alarmPeriod = setAlarmPeriod.toUpperCase();
+        alarmTime.hours = setAlarmHR;
+        alarmTime.minutes = setAlarmMin;
+        alarmTime.period = setAlarmPeriod.toUpperCase();
     }
 
-    private boolean compareTimes() {
-        return clockTime.hours == alarmHR && clockTime.minutes == alarmMin && clockTime.period.equals(alarmPeriod);
+    boolean compareTimes(int hr1, int min1, String period1, int hr2, int min2, String period2) {
+        return hr1 == hr2 && min1 == min2 && period1.equals(period2);
     }
 
     public void checkAlarm() {
-        if (alarmOn && (compareTimes())) {
+        if (snoozeState && compareTimes(clockTime.hours, clockTime.minutes, clockTime.period, snoozeTime.hours, snoozeTime.minutes, snoozeTime.period)) {
+            System.out.println("Buzz Buzz Buzz");
+        } else if (alarmOn && compareTimes(clockTime.hours, clockTime.minutes, clockTime.period, alarmTime.hours, alarmTime.minutes, alarmTime.period)) {
             System.out.println("Buzz Buzz Buzz");
         }
     }
 
     public void snooze() {
         int snoozeMins = 9;
-        if ((alarmMin + snoozeMins) >= 60) {
-            ++alarmHR;
-            alarmMin = (alarmMin + snoozeMins) - 60;
+        snoozeState = true;
+        if ((snoozeTime.minutes + snoozeMins) >= 60) {
+            ++snoozeTime.hours;
+            snoozeTime.minutes = (snoozeTime.minutes + snoozeMins) - 60;
 
             if (clockTime.hours == 12) {
-                if (alarmPeriod.equals("AM")) {
-                    alarmPeriod = "PM";
+                if (snoozeTime.period.equals("AM")) {
+                    snoozeTime.period = "PM";
                 } else {
-                    alarmPeriod = "AM";
+                    snoozeTime.period = "AM";
                 }
             }
 
-            if (alarmHR >= 12) {
-                alarmHR = 1;
+            if (snoozeTime.hours >= 12) {
+                snoozeTime.hours = 1;
             }
         } else {
-            alarmMin = alarmMin + snoozeMins;
+            snoozeTime.minutes += snoozeMins;
         }
 
         System.out.println("Snooze was pressed");
@@ -61,10 +64,10 @@ public class AlarmClock extends Clock{
         String time;
         int minZero = 0;
 
-        if (alarmMin < 10) {
-            time = String.format("%d:%d%d %s", alarmHR, minZero, alarmMin, alarmPeriod);
+        if (alarmTime.minutes < 10) {
+            time = String.format("%d:%d%d %s", alarmTime.hours, minZero, alarmTime.minutes, alarmTime.period);
         } else {
-            time = String.format("%d:%d %s", alarmHR, alarmMin, alarmPeriod);
+            time = String.format("%d:%d %s", alarmTime.hours, alarmTime.minutes, alarmTime.period);
         }
 
         return time;

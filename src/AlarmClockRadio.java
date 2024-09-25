@@ -21,4 +21,12 @@ public class AlarmClockRadio extends AlarmClock{
     public String displayStation() {
         return myRadio.displayStation();
     }
+
+    public void checkAlarm() {
+        if (snoozeState && compareTimes(clockTime.hours, clockTime.minutes, clockTime.period, snoozeTime.hours, snoozeTime.minutes, snoozeTime.period)) {
+            System.out.printf("The radio is playing %s\n", displayStation());
+        } else if (alarmOn && compareTimes(clockTime.hours, clockTime.minutes, clockTime.period, alarmTime.hours, alarmTime.minutes, alarmTime.period)) {
+            System.out.printf("The radio is playing %s\n", displayStation());
+        }
+    }
 }
