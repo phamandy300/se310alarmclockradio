@@ -19,7 +19,7 @@ public class AlarmClock extends Clock{
     }
 
     private boolean compareTimes() {
-        return hours == alarmHR && minutes == alarmMin && period.equals(alarmPeriod);
+        return clockTime.hours == alarmHR && clockTime.minutes == alarmMin && clockTime.period.equals(alarmPeriod);
     }
 
     public void checkAlarm() {
@@ -34,7 +34,7 @@ public class AlarmClock extends Clock{
             ++alarmHR;
             alarmMin = (alarmMin + snoozeMins) - 60;
 
-            if (hours == 12) {
+            if (clockTime.hours == 12) {
                 if (alarmPeriod.equals("AM")) {
                     alarmPeriod = "PM";
                 } else {

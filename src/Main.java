@@ -7,6 +7,7 @@ public class Main {
         System.out.printf("Time: %s%n", myClock.displayTime());
         System.out.printf("Alarm: %s%n", myClock.displayAlarm());
         System.out.printf("Radio Station: %s%n", myClock.displayStation());
+        myClock.setState(true);
 
         for (int i = 0; i < 5; i++) {
             for (int secs = 0; secs < 60; secs++) {

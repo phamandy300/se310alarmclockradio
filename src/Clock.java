@@ -1,42 +1,34 @@
 public class Clock {
-    public int hours;
-    public int minutes;
+    protected final Time clockTime;
     private int seconds;
-    public String period;
 
     public Clock(int hours, int minutes, String period) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.period = period.toUpperCase();
-    }
-
-    public void setTime(int setHour, int setMinute) {
-        hours = setHour;
-        minutes = setMinute;
+        clockTime = new Time(hours, minutes, period);
+        seconds = 0;
     }
 
     public void tick() {
         seconds++;
         if (seconds >= 60) {
             seconds = 0;
-            minutes++;
+            clockTime.minutes++;
         }
 
-        if (minutes >= 60) {
-            minutes = 0;
-            hours++;
+        if (clockTime.minutes >= 60) {
+            clockTime.minutes = 0;
+            clockTime.hours++;
         }
 
-        if (hours == 12) {
-            if (period.equals("AM")) {
-                period = "PM";
+        if (clockTime.hours == 12) {
+            if (clockTime.period.equals("AM")) {
+                clockTime.period = "PM";
             } else {
-                period = "AM";
+                clockTime.period = "AM";
             }
         }
 
-        if (hours > 12) {
-            hours = 1;
+        if (clockTime.hours > 12) {
+            clockTime.hours = 1;
         }
 
     }
@@ -45,10 +37,10 @@ public class Clock {
         String time;
         int minZero = 0;
 
-        if (minutes < 10) {
-            time = String.format("%d:%d%d %s", hours, minZero, minutes, period);
+        if (clockTime.minutes < 10) {
+            time = String.format("%d:%d%d %s", clockTime.hours, minZero, clockTime.minutes, clockTime.period);
         } else {
-            time = String.format("%d:%d %s", hours, minutes, period);
+            time = String.format("%d:%d %s", clockTime.hours, clockTime.minutes, clockTime.period);
         }
 
         return time;
