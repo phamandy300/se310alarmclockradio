@@ -1,7 +1,7 @@
 public class Radio {
     public int radioStation;
     public int volume;
-    public boolean on;
+    protected boolean on;
 
     public Radio(int radioStation, int volume, boolean on) {
         this.radioStation = radioStation;
@@ -19,5 +19,11 @@ public class Radio {
 
     public void setState(boolean state) {
         on = state;
+    }
+
+    public String displayStation() {
+        String currRadioStation;
+        currRadioStation = String.format("%d AM", radioStation);
+        return currRadioStation;
     }
 }

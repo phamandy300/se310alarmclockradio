@@ -41,12 +41,12 @@ public class Clock {
 
     }
 
-    public String display() {
+    public String displayTime() {
         String time;
         int minZero = 0;
 
-        if (minutes == 0) {
-            time = String.format("%d:%d%d %s", hours, minutes, minZero, period);
+        if (minutes < 10) {
+            time = String.format("%d:%d%d %s", hours, minZero, minutes, period);
         } else {
             time = String.format("%d:%d %s", hours, minutes, period);
         }
@@ -54,15 +54,12 @@ public class Clock {
         return time;
     }
 
-    public static void main(String[] args){
-        Clock test = new Clock(11, 59, "pm");
-        System.out.println(test.display());
-        for (int secs = 0; secs < 60; secs++) {
-            test.tick();
-        }
-        System.out.println(test.display());
-
-
-
-    }
+//    public static void main(String[] args){
+//        Clock test = new Clock(11, 59, "pm");
+//        System.out.println(test.displayTime());
+//        for (int secs = 0; secs < 60; secs++) {
+//            test.tick();
+//        }
+//        System.out.println(test.displayTime());
+//    }
 }
