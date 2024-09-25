@@ -19,6 +19,11 @@ public class Radio {
 
     public void setState(boolean state) {
         on = state;
+        if (on) {
+            System.out.print("Radio On\n");
+        } else {
+            System.out.print("Radio Off\n");
+        }
     }
 
     public String displayStation() {

@@ -48,10 +48,13 @@ public class AlarmClock extends Clock{
         } else {
             alarmMin = alarmMin + snoozeMins;
         }
+
+        System.out.println("Snooze was pressed");
     }
 
     public void alarmOff() {
         alarmOn = false;
+        System.out.println("Alarm off");
     }
 
     public String displayAlarm() {
